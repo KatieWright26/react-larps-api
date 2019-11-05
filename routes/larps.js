@@ -1,7 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
-const { knex, Larp } = require('../knex');
+const { Larp } = require('../knex');
 
 // CREATE larps
 router.post('/', function(req, res, next) {
