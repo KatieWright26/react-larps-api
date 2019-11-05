@@ -1,39 +1,32 @@
 const express = require('express');
 
 const router = express.Router();
-const knex = require('../knex');
+const { knex, Larp } = require('../knex');
 
 // CREATE larps
 router.post('/', function(req, res, next) {
-  knex('larps')
-    .insert({ name: req.body.name })
-    .then(larp => res.json({ larp }))
-    .catch(error => res.json({ error }));
+  new Larp({ name: req.body.name }).save(null, {method: 'insert'}).then(larp => res.json({ larp })).catch(error => res.json({ error }));
 });
 
 /* READ larps */
 router.get('/', function(req, res, next) {
-  knex
-    .select()
-    .table('larps')
-    .then(larps => res.json({ larps }))
-    .catch(error => res.json({ error }));
+  Larp.fetchAll({ withRelated: ['characters'] })
+    .then(larp => res.json(larp))
+    .catch(error => res.json({error}));
 });
 
 // UPDATE larps
 router.patch('/', function(req, res, next) {
-  knex('larps')
-    .where('id', req.body.id)
-    .update({ name: req.body.name })
-    .then(larp => res.json({ larp }))
-    .catch(error => res.json({ error }));
+  Larp.where({ id: req.body.id})
+    .save({ name: req.body.name }, { patch: true })
+    .then(larp => res.json({larp}))
+    .catch(error => res.json({error}))
 });
 
 // DELETE larps
 router.delete('/', function(req, res, next) {
-  knex('larps')
-    .where('id', req.body.id)
-    .del()
+  Larp.where('id', req.body.id)
+    .destroy()
     .then(larp => res.json({ larp }))
     .catch(error => res.json({ error }));
 });
