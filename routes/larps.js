@@ -16,16 +16,16 @@ router.get('/', function(req, res, next) {
 });
 
 // UPDATE larps
-router.patch('/', function(req, res, next) {
-  Larp.where({ id: req.body.id})
+router.patch('/:id', function(req, res, next) {
+  Larp.where({ id: req.params.id})
     .save({ name: req.body.name }, { patch: true })
     .then(larp => res.json({larp}))
     .catch(error => res.json({error}))
 });
 
 // DELETE larps
-router.delete('/', function(req, res, next) {
-  Larp.where('id', req.body.id)
+router.delete('/:id', function(req, res, next) {
+  Larp.where('id', req.params.id)
     .destroy()
     .then(larp => res.json({ larp }))
     .catch(error => res.json({ error }));

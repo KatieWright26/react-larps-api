@@ -5,14 +5,16 @@ const bodyParser = require('body-parser');
 
 const larps = require('./routes/larps');
 const characters = require('./routes/characters');
-
+const cors = require('cors')
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api/v1/larps', larps);
 app.use('/api/v1/characters', characters);
+
 
 module.exports = app;
