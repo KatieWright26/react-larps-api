@@ -5,7 +5,7 @@ const { Larp } = require('../knex');
 
 // CREATE larps
 router.post('/', function(req, res, next) {
-  new Larp({ name: req.body.name }).save(null, {method: 'insert'}).then(larp => res.json({ larp })).catch(error => res.json({ error }));
+  new Larp({ name: req.body.larpName }).save(null, {method: 'insert'}).then(larp => res.json({ larp })).catch(error => res.json({ error }));
 });
 
 /* READ larps */
