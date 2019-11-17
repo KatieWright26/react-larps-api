@@ -27,8 +27,8 @@ router.patch('/', function(req, res, next) {
 });
 
 // DELETE characters
-router.delete('/', function(req, res, next) {
-  Character.where({ id: req.body.id})
+router.delete('/:id', function(req, res, next) {
+  Character.where('id', req.params.id)
     .destroy()
     .then(character => res.json({ character }))
     .catch(error => res.json({ error }));
