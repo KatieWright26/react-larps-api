@@ -7,10 +7,6 @@ exports.up = function(knex) {
       .notNullable();
     table.string('name');
     table.timestamps();
-    // table
-    //   .foreign('larp_id')
-    //   .references('id')
-    //   .inTable('larps');
   });
 };
 
